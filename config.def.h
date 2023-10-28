@@ -207,6 +207,9 @@ static const Key keys[] = {
 
     // killall
     { MODKEY|ShiftMask|ControlMask, XK_c,      killall,        {0} },
+
+    // killunsel
+    { MODKEY|ControlMask,           XK_c,      killunsel,      {0} },
 };
 
 /* button definitions */
