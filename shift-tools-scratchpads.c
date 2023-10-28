@@ -121,7 +121,7 @@ swaptags(const Arg *arg)
 	}
 
 	//move to the swaped tag
-	//selmon->tagset[selmon->seltags] = newtag;
+	selmon->tagset[selmon->seltags] = newtag;
 
 	focus(NULL);
 	arrange(selmon);
@@ -139,5 +139,5 @@ shiftswaptags(const Arg *arg)
 		shifted.ui = ((shifted.ui >> (- arg->i) | shifted.ui << (LENGTH(tags) + arg->i))) & ~SPTAGMASK;
 	swaptags(&shifted);
 	// uncomment if you also want to "go" (view) the tag where the the clients are going
-	view(&shifted);
+	// view(&shifted);
 }
