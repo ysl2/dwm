@@ -25,13 +25,15 @@ static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
 	[SchemeSel]  = { col_gray4, col_cyan,  col_red  },
-	[SchemeHov]  = { col_gray4, col_cyan,  col_cyan  },
+	[SchemeHov]  = { col_gray4, col_cyan,  col_red  },
 	[SchemeHid]  = { col_cyan,  col_gray1, col_cyan  },
 };
 static const unsigned int alphas[][3]      = {
     /*               fg      bg        border*/
     [SchemeNorm] = { OPAQUE, baralpha, borderalpha },
 	[SchemeSel]  = { OPAQUE, baralpha, borderalpha },
+	[SchemeHov]  = { OPAQUE, baralpha, borderalpha },
+	[SchemeHid]  = { OPAQUE, baralpha, borderalpha },
 };
 
 typedef struct {
