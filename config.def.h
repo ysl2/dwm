@@ -204,6 +204,9 @@ static const Key keys[] = {
 
     // fullscreen
 	{ MODKEY|ShiftMask,             XK_f,      fullscreen,     {0} },
+
+    // killall
+    { MODKEY|ShiftMask|ControlMask, XK_c,      killall,        {0} },
 };
 
 /* button definitions */
