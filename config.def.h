@@ -79,11 +79,7 @@ static const char *termcmd[]  = { "alacritty", NULL };
 #include "shift-tools-scratchpads.c"
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
-	{ MODKEY,                       XK_o, shiftviewclients,    { .i = +1 } },
-	{ MODKEY|ShiftMask,             XK_o,	shiftview,         { .i = +1 } },
-	{ MODKEY|ShiftMask,             XK_i,	shiftview,         { .i = -1 } },
-	{ MODKEY,	                XK_i, shiftviewclients,    { .i = -1 } },
+	{ MODKEY|ShiftMask,             XK_o,      spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
@@ -91,10 +87,6 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
 	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
-	{ MODKEY|ShiftMask,		XK_h,      shiftboth,      { .i = -1 }	},
-	{ MODKEY|ControlMask,		XK_h,      shiftswaptags,  { .i = -1 }	},
-	{ MODKEY|ControlMask,		XK_l,      shiftswaptags,  { .i = +1 }	},
-	{ MODKEY|ShiftMask,             XK_l,      shiftboth,      { .i = +1 }	},
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
 	{ MODKEY,                       XK_Return, zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
@@ -125,6 +117,18 @@ static const Key keys[] = {
 	{ MODKEY,            			XK_y,  	   togglescratch,  {.ui = 0 } },
 	{ MODKEY,            			XK_u,	   togglescratch,  {.ui = 1 } },
 	{ MODKEY,            			XK_x,	   togglescratch,  {.ui = 2 } },
+
+    // shif-tools
+	{ MODKEY,	                    XK_p,      shiftviewclients, { .i = -1 } },
+	{ MODKEY,                       XK_n,      shiftviewclients, { .i = +1 } },
+	{ MODKEY,                       XK_h,	   shiftview,        { .i = -1 } },
+	{ MODKEY,                       XK_l,	   shiftview,        { .i = +1 } },
+	{ MODKEY|ShiftMask,		        XK_p,      shifttagclients,  { .i = -1 } },
+	{ MODKEY|ShiftMask,             XK_n,      shifttagclients,  { .i = +1 } },
+	{ MODKEY|ShiftMask,		        XK_h,      shifttag,         { .i = -1 } },
+	{ MODKEY|ShiftMask,             XK_l,      shifttag,         { .i = +1 } },
+	{ MODKEY|ShiftMask|ControlMask,	XK_h,      shiftswaptags,    { .i = -1 } },
+	{ MODKEY|ShiftMask|ControlMask,	XK_l,      shiftswaptags,    { .i = +1 } },
 };
 
 /* button definitions */
