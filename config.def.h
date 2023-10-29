@@ -211,6 +211,9 @@ static const Key keys[] = {
 
     // killunsel
     { MODKEY|ControlMask,           XK_c,      killunsel,      {0} },
+
+    // sticky
+    { MODKEY,                       XK_s,      togglesticky,    {0} },
 };
 
 /* button definitions */
