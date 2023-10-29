@@ -219,7 +219,6 @@ static void hide(const Arg *arg);
 static void hidewin(Client *c);
 static void incnmaster(const Arg *arg);
 static void keypress(XEvent *e);
-static void killthis(Window w);
 static void killclient(const Arg *arg);
 static void manage(Window w, XWindowAttributes *wa);
 static void mappingnotify(XEvent *e);
@@ -1326,36 +1325,20 @@ keypress(XEvent *e)
 }
 
 void
-killthis(Window w) {
-	if (!sendevent(w, wmatom[WMDelete], NoEventMask, wmatom[WMDelete], CurrentTime, 0, 0, 0)) {
+killclient(const Arg *arg)
+{
+	if (!selmon->sel)
+		return;
+
+	if (!sendevent(selmon->sel->win, wmatom[WMDelete], NoEventMask, wmatom[WMDelete], CurrentTime, 0 , 0, 0)) {
 		XGrabServer(dpy);
 		XSetErrorHandler(xerrordummy);
 		XSetCloseDownMode(dpy, DestroyAll);
-		XKillClient(dpy, w);
+		XKillClient(dpy, selmon->sel->win);
 		XSync(dpy, False);
 		XSetErrorHandler(xerror);
 		XUngrabServer(dpy);
 	}
-}
-
-void
-killclient(const Arg *arg)
-{
-    Client *c;
-
-	if (!selmon->sel)
-		return;
-
-    if (!arg->ui || arg->ui == 0) {
-        killthis(selmon->sel->win);
-        return;
-    }
-
-    for (c = selmon->clients; c; c = c->next) {
-        if (!ISVISIBLE(c) || (arg->ui == 1 && c == selmon->sel))
-            continue;
-        killthis(c->win);
-    }
 }
 
 void
