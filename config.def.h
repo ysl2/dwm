@@ -206,14 +206,12 @@ static const Key keys[] = {
     // fullscreen
 	{ MODKEY|ShiftMask,             XK_f,      fullscreen,     {0} },
 
-    // killall
-    { MODKEY|ShiftMask|ControlMask, XK_c,      killall,        {0} },
-
-    // killunsel
-    { MODKEY|ControlMask,           XK_c,      killunsel,      {0} },
-
     // sticky
     { MODKEY,                       XK_s,      togglesticky,    {0} },
+
+    // systray-bulkill
+    { MODKEY|ControlMask,           XK_c,      killclient,     {.ui = 1} },  // kill unselect
+    { MODKEY|ShiftMask|ControlMask, XK_c,      killclient,     {.ui = 2} },  // killall
 };
 
 /* button definitions */
