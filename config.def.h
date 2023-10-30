@@ -115,7 +115,7 @@ static const char *termcmd[]  = { "alacritty", NULL };
 #include "movestack.c"
 #include "shift-tools-scratchpads.c"
 #include "bulkill.c"
-#include "selfrestart.c"
+#include "exitdwm.c"
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY|ShiftMask,             XK_o,      spawn,          {.v = dmenucmd } },
@@ -148,7 +148,6 @@ static const Key keys[] = {
 	TAGKEYS(                        XK_7,                      6)
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
-	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
 
     // movestack
 	{ MODKEY|ShiftMask,             XK_j,      movestack,      {.i = +1 } },
@@ -215,8 +214,11 @@ static const Key keys[] = {
     { MODKEY|ControlMask,           XK_c,      bulkill,        {.ui = 1} },  // kill unselect
     { MODKEY|ShiftMask|ControlMask, XK_c,      bulkill,        {.ui = 2} },  // killall
 
-    // selfrestart
-    { MODKEY|ShiftMask,             XK_r,      self_restart,   {0} },
+    // // selfrestart
+    // { MODKEY|ShiftMask,             XK_r,      self_restart,   {0} },
+
+    // exitmenu
+	{ MODKEY|ShiftMask,             XK_q,      exitdwm,        {0} },
 };
 
 /* button definitions */
