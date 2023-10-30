@@ -213,8 +213,10 @@ static const Key keys[] = {
     { MODKEY,                       XK_s,      togglesticky,    {0} },
 
     //bulkill-systray-safe
-    { MODKEY|ControlMask,           XK_c,      bulkill,        {.ui = 1} },  // kill unselect
-    { MODKEY|ShiftMask|ControlMask, XK_c,      bulkill,        {.ui = 2} },  // killall
+    { MODKEY|ControlMask,           XK_c,      bulkill,        {.ui = 1} },  // kill unselect (except sticky)
+    { MODKEY|ShiftMask|ControlMask, XK_c,      bulkill,        {.ui = 2} },  // killall (except sticky)
+    { MODKEY|ControlMask,           XK_z,      bulkill,        {.ui = 3} },  // kill unselect
+    { MODKEY|ShiftMask|ControlMask, XK_z,      bulkill,        {.ui = 4} },  // killall
 };
 
 /* button definitions */

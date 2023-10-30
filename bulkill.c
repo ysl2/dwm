@@ -28,9 +28,10 @@ bulkill(const Arg *arg)
     }
 
     for (c = selmon->clients; c; c = c->next) {
-        if (c->issticky || !ISVISIBLE(c) || (arg->ui == 1 && c == selmon->sel))
+        if (!ISVISIBLE(c)
+        || ((arg->ui & 1) && c == selmon->sel)  // if odd, skip selected
+        || ((arg->ui < 3) && c->issticky))  // if 1 or 2, skip sticky
             continue;
         killthis(c->win);
     }
 }
-
