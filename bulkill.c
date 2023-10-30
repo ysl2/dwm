@@ -28,7 +28,7 @@ bulkill(const Arg *arg)
     }
 
     for (c = selmon->clients; c; c = c->next) {
-        if (!ISVISIBLE(c) || (arg->ui == 1 && c == selmon->sel))
+        if (c->issticky || !ISVISIBLE(c) || (arg->ui == 1 && c == selmon->sel))
             continue;
         killthis(c->win);
     }
