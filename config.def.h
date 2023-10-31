@@ -224,6 +224,10 @@ static const Key keys[] = {
 
     // exitmenu
 	{ MODKEY|ShiftMask,             XK_q,      exitdwm,        {0} },
+
+    // rotatestack
+	{ MODKEY|ShiftMask|ControlMask, XK_j,      rotatestack,    {.i = +1 } },
+	{ MODKEY|ShiftMask|ControlMask, XK_k,      rotatestack,    {.i = -1 } },
 };
 
 /* button definitions */
