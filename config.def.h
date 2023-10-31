@@ -122,6 +122,7 @@ static const char *termcmd[]  = { "alacritty", NULL };
 #include "shift-tools-scratchpads.c"
 #include "bulkill.c"
 #include "exitdwm.c"
+#include "inplacerotate.c"
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY|ShiftMask,             XK_o,      spawn,          {.v = dmenucmd } },
@@ -224,6 +225,12 @@ static const Key keys[] = {
 
     // exitmenu
 	{ MODKEY|ShiftMask,             XK_q,      exitdwm,        {0} },
+
+    // inplacerotate
+	{ Mod1Mask|ShiftMask|ControlMask, XK_j,    inplacerotate,  {.i = +1} },
+	{ Mod1Mask|ShiftMask|ControlMask, XK_k,    inplacerotate,  {.i = -1} },
+	{ MODKEY|ShiftMask|ControlMask, XK_j,      inplacerotate,  {.i = +2} },
+	{ MODKEY|ShiftMask|ControlMask, XK_k,      inplacerotate,  {.i = -2} },
 };
 
 /* button definitions */
