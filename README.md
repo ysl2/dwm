@@ -3,6 +3,10 @@
 ![](assets/README/dwm.png)
 
 ```
+sudo apt install -y libx11-dev libxinerama-dev libxft-dev libx11-xcb-dev libxcb-res0-dev
+```
+
+```
 dwm - dynamic window manager
 ============================
 dwm is an extremely fast, small, and dynamic window manager for X.
