@@ -2925,8 +2925,10 @@ updatewindowtype(Client *c)
     if (state == netatom[NetWMSticky]) {
         setsticky(c, 1);
     }
-    if (wtype == netatom[NetWMWindowTypeDialog])
+    if (wtype == netatom[NetWMWindowTypeDialog]) {
         c->isfloating = 1;
+        alwayscenter(c);
+    }
 }
 
 void
