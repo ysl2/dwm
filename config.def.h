@@ -22,13 +22,17 @@ typedef struct {
 	const char *name;
 	const void *cmd;
 } Sp;
-const char *spcmd1[] = {"st", "-n", "spterm", "-g", "120x34", NULL };
-const char *spcmd2[] = {"st", "-n", "spfm", "-g", "144x41", "-e", "ranger", NULL };
-const char *spcmd3[] = {"keepassxc", NULL };
+// const char *spcmd1[] = {"st", "-n", "spterm", "-g", "120x34", NULL };
+// const char *spcmd2[] = {"st", "-n", "spfm", "-g", "144x41", "-e", "ranger", NULL };
+#include "scratchpads.c"
+char *spcmd1[] = {"alacritty", "--class", "spterm", "-o", "window.dimensions.lines=%d", "-o", "window.dimensions.columns=%d", NULL };
+char *spcmd2[] = {"alacritty", "--class", "spfm", "-o", "window.dimensions.lines=30", "-o", "window.dimensions.columns=90", "-e", "lf", NULL };
+char *spcmd3[] = {"keepassxc", NULL };
+const char **spcmd11 = injectNumbersIntoStringArray(spcmd1, 30, 90);
 static Sp scratchpads[] = {
 	/* name          cmd  */
-	{"spterm",      spcmd1},
-	{"spranger",    spcmd2},
+	{"spterm",      spcmd11},
+	{"spfm",        spcmd2},
 	{"keepassxc",   spcmd3},
 };
 
