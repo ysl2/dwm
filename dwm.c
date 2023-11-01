@@ -243,6 +243,7 @@ static void pop(Client *c);
 static void propertynotify(XEvent *e);
 static void quit(const Arg *arg);
 static Monitor *recttomon(int x, int y, int w, int h);
+static void resetlayout(const Arg *arg);
 static void removesystrayicon(Client *i);
 static void resize(Client *c, int x, int y, int w, int h, int interact);
 static void resizebarwin(Monitor *m);
@@ -1714,6 +1715,29 @@ recttomon(int x, int y, int w, int h)
 }
 
 void
+resetlayout(const Arg *arg)
+{
+	Arg default_mfact = {.f = mfact + 1};
+    Client *c;
+    int current_in_master = selmon->clients == selmon->sel;
+
+    if(!selmon->lt[selmon->sellt]->arrange) {
+        return;
+    }
+
+    if (arg->ui || !current_in_master) {
+        for (c = selmon->clients; c; c = c->next) {
+            c->cfact = 1.0;
+        }
+        if (!arg->ui) {
+            arrange(selmon);
+            return;
+        }
+    }
+    setmfact(&default_mfact);
+}
+
+void
 removesystrayicon(Client *i)
 {
 	Client **ii;
@@ -1745,8 +1769,7 @@ void
 resizeclient(Client *c, int x, int y, int w, int h)
 {
 	XWindowChanges wc;
-	unsigned int n;
-	Client *nbc;
+	int only_one_client = (nexttiled(c->mon->clients) == c) && !nexttiled(c->next);
 
 	c->oldx = c->x; c->x = wc.x = x;
 	c->oldy = c->y; c->y = wc.y = y;
@@ -1754,11 +1777,10 @@ resizeclient(Client *c, int x, int y, int w, int h)
 	c->oldh = c->h; c->h = wc.height = h;
 	wc.border_width = c->bw;
 
-	for (n = 0, nbc = nexttiled(c->mon->clients); nbc; nbc = nexttiled(nbc->next), n++);
-
+	/* Do nothing if layout is floating */
 	if (c->isfloating || c->mon->lt[c->mon->sellt]->arrange == NULL) {
 	} else {
-		if (c->mon->lt[c->mon->sellt]->arrange == monocle || n == 1) {
+		if (c->mon->lt[c->mon->sellt]->arrange == monocle || only_one_client) {
 			wc.border_width = 0;
 			c->w = wc.width += c->bw * 2;
 			c->h = wc.height += c->bw * 2;

@@ -166,7 +166,7 @@ static const Key keys[] = {
     // cfacts-vanitygaps
 	{ MODKEY,                       XK_minus,     setcfact,    {.f = -0.25} },
 	{ MODKEY,                       XK_equal,     setcfact,    {.f = +0.25} },
-	{ MODKEY,                       XK_backslash, setcfact,    {.f =  0.00} },
+	// { MODKEY,                       XK_backslash, setcfact,    {.f =  0.00} },
 	{ MODKEY|Mod1Mask,              XK_u,      incrgaps,       {.i = +1 } },
 	{ MODKEY|Mod1Mask|ShiftMask,    XK_u,      incrgaps,       {.i = -1 } },
 	{ MODKEY|Mod1Mask,              XK_i,      incrigaps,      {.i = +1 } },
@@ -231,6 +231,10 @@ static const Key keys[] = {
 	{ Mod1Mask|ShiftMask|ControlMask, XK_k,    inplacerotate,  {.i = -1} },
 	{ MODKEY|ShiftMask|ControlMask, XK_j,      inplacerotate,  {.i = +2} },
 	{ MODKEY|ShiftMask|ControlMask, XK_k,      inplacerotate,  {.i = -2} },
+
+    // resetlayout
+	{ MODKEY,                       XK_backslash, resetlayout,    {.ui = 0} },
+	{ MODKEY|ShiftMask,             XK_backslash, resetlayout,    {.ui = 1} },
 };
 
 /* button definitions */
