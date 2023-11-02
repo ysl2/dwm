@@ -113,6 +113,7 @@ static const char *termcmd[]  = { "alacritty", NULL };
 
 #include "movestack.c"
 #include "shift-tools-scratchpads.c"
+#include "fullscreen.c"
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY|ShiftMask,             XK_o,      spawn,          {.v = dmenucmd } },
