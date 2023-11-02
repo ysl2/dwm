@@ -127,6 +127,7 @@ static const char *termcmd[]  = { "alacritty", NULL };
 #include "bulkill.c"
 #include "exitdwm.c"
 #include "inplacerotate.c"
+#include "cyclelayouts.c"
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_o,      spawn,          {.v = dmenucmd } },
