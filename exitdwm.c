@@ -54,6 +54,7 @@ char *get_dwm_path(){
  * Initially inspired by: Yu-Jie Lin
  * https://sites.google.com/site/yjlnotes/notes/dwm
  */
+#include "restoreafterrestart.c"
 void self_restart(const Arg *arg) {
     char *const argv[] = {get_dwm_path(), NULL};
 
@@ -61,6 +62,7 @@ void self_restart(const Arg *arg) {
         return;
     }
 
+    saveSession();
     execv(argv[0], argv);
 }
 
