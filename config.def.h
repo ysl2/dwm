@@ -72,6 +72,7 @@ static const Rule rules[] = {
 	{ NULL,		  "spfm",		NULL,		SPTAG(1),		1,		   1,           0,          -1 },
 	{ NULL,		  "keepassxc",	NULL,		SPTAG(2),		0,		   1,           0,          -1 },
 	{ "Alacritty", NULL,        NULL,       0,              0,         1,           0,          -1 },
+	{ "Clash for Windows", NULL, NULL,      0,              1,         0,           0,          -1 },
 };
 
 /* layout(s) */
