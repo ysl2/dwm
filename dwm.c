@@ -1713,22 +1713,41 @@ resetlayout(const Arg *arg)
 {
 	Arg default_mfact = {.f = mfact + 1};
     Client *c;
-    int current_in_master = selmon->clients == selmon->sel;
+    int i, current_in_master = 0;
 
     if(!selmon->lt[selmon->sellt]->arrange) {
         return;
     }
 
-    if (arg->ui || !current_in_master) {
-        for (c = selmon->clients; c; c = c->next) {
-            c->cfact = 1.0;
-        }
-        if (!arg->ui) {
-            arrange(selmon);
-            return;
+    if (arg->ui < 2) {
+        // Check if current is in master.
+        for (i = 0, c = selmon->clients; c; c = c->next, i++) {
+            if (c == selmon->sel && i < selmon->nmaster) {  // Current in master
+                current_in_master = 1;
+                break;
+            }
         }
     }
-    setmfact(&default_mfact);
+
+    for (i = 0, c = selmon->clients; c; c = c->next, i++) {
+        if (arg->ui < 2) {
+            if (!current_in_master && i < selmon->nmaster)  // Current not in master but reading masters now.
+                continue;
+            if (current_in_master && i == selmon->nmaster) {  // Current in master but ranched all masters.
+                if (arg->ui == 1)
+                    selmon->nmaster = selmon->pertag->nmasters[selmon->pertag->curtag] = 1;
+                setmfact(&default_mfact);
+                return;
+            }
+        }
+        c->cfact = 1.0;
+    }
+    if (arg->ui < 2) {
+        arrange(selmon);
+    } else {
+        selmon->nmaster = selmon->pertag->nmasters[selmon->pertag->curtag] = 1;
+        setmfact(&default_mfact);
+    }
 }
 
 void
