@@ -3009,6 +3009,7 @@ zoom(const Arg *arg)
 	pop(c);
 }
 
+#include "restoreafterrestart.c"
 int
 main(int argc, char *argv[])
 {
@@ -3027,6 +3028,7 @@ main(int argc, char *argv[])
 		die("pledge");
 #endif /* __OpenBSD__ */
 	scan();
+    restoreSession();
 	runautostart();
 	run();
 	cleanup();
