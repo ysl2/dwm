@@ -368,6 +368,7 @@ struct Pertag {
 struct NumTags { char limitexceeded[LENGTH(tags) > 31 ? -1 : 1]; };
 
 /* function implementations */
+#include "alwayscenter.c"
 void
 applyrules(Client *c)
 {
@@ -394,10 +395,8 @@ applyrules(Client *c)
 			c->noswallow  = r->noswallow;
 			c->isfloating = r->isfloating;
 			c->tags |= r->tags;
-			if ((r->tags & SPTAGMASK) && r->isfloating) {
-				c->x = c->mon->wx + (c->mon->ww / 2 - WIDTH(c) / 2);
-				c->y = c->mon->wy + (c->mon->wh / 2 - HEIGHT(c) / 2);
-			}
+			if ((r->tags & SPTAGMASK) && r->isfloating)
+                alwayscenter(c);
 
 			for (m = mons; m && m->num != r->monitor; m = m->next);
 			if (m)
@@ -1390,7 +1389,6 @@ killclient(const Arg *arg)
 	}
 }
 
-#include "alwayscenter.c"
 void
 manage(Window w, XWindowAttributes *wa)
 {
@@ -2207,10 +2205,8 @@ showhide(Client *c)
 	if (!c)
 		return;
 	if (ISVISIBLE(c)) {
-		if ((c->tags & SPTAGMASK) && c->isfloating) {
-			c->x = c->mon->wx + (c->mon->ww / 2 - WIDTH(c) / 2);
-			c->y = c->mon->wy + (c->mon->wh / 2 - HEIGHT(c) / 2);
-		}
+        if ((c->tags & SPTAGMASK) && c->isfloating)
+            alwayscenter(c);
 		/* show clients top down */
 		XMoveWindow(dpy, c->win, c->x, c->y);
 		if (!c->mon->lt[c->mon->sellt]->arrange || c->isfloating)
