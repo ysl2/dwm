@@ -188,7 +188,6 @@ struct Systray {
 };
 
 /* function declarations */
-static void alwayscenter(Client *c);
 static void applyrules(Client *c);
 static int applysizehints(Client *c, int *x, int *y, int *w, int *h, int interact);
 static void arrange(Monitor *m);
@@ -369,13 +368,6 @@ struct Pertag {
 struct NumTags { char limitexceeded[LENGTH(tags) > 31 ? -1 : 1]; };
 
 /* function implementations */
-void
-alwayscenter(Client *c)
-{
-	c->x = c->mon->mx + (c->mon->mw - WIDTH(c)) / 2;
-	c->y = c->mon->my + (c->mon->mh - HEIGHT(c)) / 2;
-}
-
 void
 applyrules(Client *c)
 {
@@ -1398,6 +1390,7 @@ killclient(const Arg *arg)
 	}
 }
 
+#include "alwayscenter.c"
 void
 manage(Window w, XWindowAttributes *wa)
 {
