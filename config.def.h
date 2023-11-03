@@ -243,6 +243,7 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_backslash, resetlayout,    {.ui = 0} },
 	{ MODKEY|ControlMask,           XK_backslash, resetlayout,    {.ui = 1} },
 	{ MODKEY|ShiftMask,             XK_backslash, resetlayout,    {.ui = 2} },
+	{ MODKEY|ShiftMask|ControlMask, XK_backslash, resetlayout,    {.ui = 3} },
 };
 
 /* button definitions */
