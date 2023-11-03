@@ -2434,6 +2434,7 @@ unmanage(Client *c, int destroyed)
 	int i;
 	Monitor *m = c->mon;
 	XWindowChanges wc;
+    Arg resetlayout_signal = {.ui = 3};
 
 	for (i = 0; i < LENGTH(tags) + 1; i++)
 		if (c->mon->pertag->sel[i] == c)
@@ -2473,6 +2474,8 @@ unmanage(Client *c, int destroyed)
 		arrange(m);
 		focus(NULL);
 		updateclientlist();
+        if (!(nexttiled(m->clients)))
+            resetlayout(&resetlayout_signal);
 	}
 }
 
