@@ -250,9 +250,11 @@ static const Key keys[] = {
 /* button definitions */
 /* click can be ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle, ClkClientWin, or ClkRootWin */
 #include "tapresize.c"
+#include "layoutmenu.c"
 static const Button buttons[] = {
 	/* click                event mask      button          function        argument */
 	// { ClkWinTitle,          0,              Button1,        togglewin,      {0} },
+	{ ClkLtSymbol,          0,              Button1,        layoutmenu,     {0} },
 	{ ClkWinTitle,          0,              Button2,        zoom,           {0} },
 	{ ClkStatusText,        0,              Button2,        spawn,          {.v = termcmd } },
 	{ ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
