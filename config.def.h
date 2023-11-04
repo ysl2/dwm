@@ -246,9 +246,9 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask|ControlMask, XK_backslash, resetlayout,    {.ui = 3} },
 };
 
-#include "tapresize.c"
 /* button definitions */
 /* click can be ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle, ClkClientWin, or ClkRootWin */
+#include "tapresize.c"
 static const Button buttons[] = {
 	/* click                event mask      button          function        argument */
 	// { ClkWinTitle,          0,              Button1,        togglewin,      {0} },
