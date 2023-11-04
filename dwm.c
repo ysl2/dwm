@@ -1727,7 +1727,7 @@ resetlayout(const Arg *arg)
         selmon->mfact = selmon->pertag->mfacts[curtag] = mfact;
         if (arg->ui)
             // setnmaster
-            selmon->nmaster = selmon->pertag->nmasters[curtag] = 1;
+            selmon->nmaster = selmon->pertag->nmasters[curtag] = nmaster;
     }
     if (arg->ui > 2) {
         setlayout(&default_layout);
