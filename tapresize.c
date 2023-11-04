@@ -45,8 +45,14 @@ resizemousescroll(const Arg *arg)
 		&& (abs(nw - c->w) > snap || abs(nh - c->h) > snap))
 			togglefloating(NULL);
 	}
-	if (!selmon->lt[selmon->sellt]->arrange || c->isfloating)
-		resize(c, c->x, c->y, nw, nh, 1);
+    if (!selmon->lt[selmon->sellt]->arrange || c->isfloating) {
+        resize(c, c->x, c->y, nw, nh, 1);
+        /* save last known float dimensions */
+        c->sfx = c->x;
+        c->sfy = c->y;
+        c->sfw = nw;
+        c->sfh = nh;
+    }
 	XWarpPointer(dpy, None, c->win, 0, 0, 0, 0, c->w + c->bw - 1, c->h + c->bw - 1);
 	XUngrabPointer(dpy, CurrentTime);
 	while (XCheckMaskEvent(dpy, EnterWindowMask, &ev));
