@@ -1394,8 +1394,8 @@ manage(Window w, XWindowAttributes *wa)
 	updatesizehints(c);
 	updatewmhints(c);
     alwayscenter(c);
-	c->sfx = c->x;
-	c->sfy = c->y;
+	c->sfx = -9999;
+	c->sfy = -9999;
 	c->sfw = c->w;
 	c->sfh = c->h;
 	XSelectInput(dpy, w, EnterWindowMask|FocusChangeMask|PropertyChangeMask|StructureNotifyMask);
@@ -1528,8 +1528,12 @@ movemouse(const Arg *arg)
 			if (!c->isfloating && selmon->lt[selmon->sellt]->arrange
 			&& (abs(nx - c->x) > snap || abs(ny - c->y) > snap))
 				togglefloating(NULL);
-			if (!selmon->lt[selmon->sellt]->arrange || c->isfloating)
+			if (!selmon->lt[selmon->sellt]->arrange || c->isfloating) {
 				resize(c, nx, ny, c->w, c->h, 1);
+				/* save last known float coordinates */
+				c->sfx = nx;
+				c->sfy = ny;
+			}
 			break;
 		}
 	} while (ev.type != ButtonRelease);
@@ -1747,8 +1751,14 @@ resizemouse(const Arg *arg)
 				&& (abs(nw - c->w) > snap || abs(nh - c->h) > snap))
 					togglefloating(NULL);
 			}
-			if (!selmon->lt[selmon->sellt]->arrange || c->isfloating)
+			if (!selmon->lt[selmon->sellt]->arrange || c->isfloating) {
 				resize(c, c->x, c->y, nw, nh, 1);
+				/* save last known float dimensions */
+				c->sfx = c->x;
+				c->sfy = c->y;
+				c->sfw = nw;
+				c->sfh = nh;
+			}
 			break;
 		}
 	} while (ev.type != ButtonRelease);
@@ -2238,8 +2248,15 @@ showhide(Client *c)
 		}
 		/* show clients top down */
 		XMoveWindow(dpy, c->win, c->x, c->y);
-		if ((!c->mon->lt[c->mon->sellt]->arrange || c->isfloating) && !c->isfullscreen)
-			resize(c, c->x, c->y, c->w, c->h, 0);
+		if (savefloats && !c->mon->lt[c->mon->sellt]->arrange && c->sfx != -9999 && !c->isfullscreen) {
+			XMoveWindow(dpy, c->win, c->sfx, c->sfy);
+			resize(c, c->sfx, c->sfy, c->sfw, c->sfh, 0);
+		} else {
+			XMoveWindow(dpy, c->win, c->x, c->y);
+			if ((!c->mon->lt[c->mon->sellt]->arrange || c->isfloating) && !c->isfullscreen) {
+				resize(c, c->x, c->y, c->w, c->h, 0);
+			}
+		}
 		showhide(c->snext);
 	} else {
 		/* hide clients bottom up */
@@ -2319,9 +2336,14 @@ togglefloating(const Arg *arg)
 		return;
 	selmon->sel->isfloating = !selmon->sel->isfloating || selmon->sel->isfixed;
 	if (selmon->sel->isfloating)
-		/* restore last known float dimensions */
-		resize(selmon->sel, selmon->sel->sfx, selmon->sel->sfy,
-		       selmon->sel->sfw, selmon->sel->sfh, False);
+		if (savefloats && selmon->sel->sfx != -9999) {
+			/* restore last known float dimensions */
+			resize(selmon->sel, selmon->sel->sfx, selmon->sel->sfy,
+			       selmon->sel->sfw, selmon->sel->sfh, 0);
+		} else {
+			resize(selmon->sel, selmon->sel->x, selmon->sel->y,
+				selmon->sel->w, selmon->sel->h, 0);
+		}
 	else {
 		/* save last known float dimensions */
 		selmon->sel->sfx = selmon->sel->x;
