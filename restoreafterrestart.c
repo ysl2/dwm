@@ -1,5 +1,8 @@
 #ifndef RESTORE_AFTER_RESTART
 #define RESTORE_AFTER_RESTART
+
+#define SESSION_FILE "/tmp/dwm-session"
+
 void
 saveSession(void)
 {
